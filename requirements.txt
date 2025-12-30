@@ -13,3 +13,5 @@ numpy
 
 # YOLO from Ultralytics
 ultralytics
+
+gunicorn
