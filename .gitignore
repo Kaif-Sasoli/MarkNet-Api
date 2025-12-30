@@ -1,0 +1,50 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+
+
+# Virtual Environments
+venv/
+env/
+.venv/
+ENV/
+
+# =========================
+# PyTorch / ML
+# *.pt
+# *.pth
+# *.onnx
+# *.ckpt
+
+# (OPTIONAL)
+# Uncomment if you do NOT want to push weights
+# weights/
+
+# Logs
+*.log
+logs/
+
+# Flask
+instance/
+.flaskenv
+.env
+
+# OS / Editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Docker
+
+*.tar
