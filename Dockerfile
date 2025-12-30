@@ -1,4 +1,4 @@
-# Use Python 3.10 (supported by KenLM)
+# Use Python 3.10 (compatible with KenLM)
 FROM python:3.10-slim
 
 # Install system dependencies
@@ -17,18 +17,23 @@ RUN apt-get update && apt-get install -y \
 # Set working directory
 WORKDIR /app
 
-# Copy project files
-COPY . /app
+# Copy requirements first (for caching)
+COPY requirements.txt /app/
 
-# Upgrade pip and install KenLM first
+# Upgrade pip and install dependencies
 RUN pip install --upgrade pip
+
+# Install KenLM first (needed for flashlight-text)
 RUN pip install git+https://github.com/kpu/kenlm.git
 
-# Install Python dependencies
+# Install remaining Python dependencies
 RUN pip install -r requirements.txt
 
-# Expose the Flask app port
+# Copy the rest of the project files
+COPY . /app
+
+# Expose port
 EXPOSE 10000
 
-# Start Flask app with gunicorn
-CMD ["gunicorn", "--bind", "0.0.0.0:10000", "app:app"]
+# Use shell form CMD so Render can find gunicorn
+CMD gunicorn --bind 0.0.0.0:10000 app:app

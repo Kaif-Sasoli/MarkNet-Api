@@ -96,9 +96,9 @@ class CRNNPredictor:
             logits = self.model(img_tensor)           # [1, T, C]
             log_probs = F.log_softmax(logits, dim=2)  
 
-            pred_text = decode_predictions(log_probs.cpu())
+            results = decode_predictions(log_probs.cpu())
 
-            # pred_text = decode_torchaudio_results(results)
+            pred_text = decode_torchaudio_results(results)
             
         # Clean the text based on class
         cleaned_text = clean_field(pred_text, cls) if cls is not None else pred_text
