@@ -1,5 +1,5 @@
-# Use official Python image
-FROM python:3.13-slim
+# Use Python 3.10 (supported by KenLM)
+FROM python:3.10-slim
 
 # Install system dependencies
 RUN apt-get update && apt-get install -y \
@@ -21,8 +21,8 @@ WORKDIR /app
 COPY . /app
 
 # Upgrade pip and install KenLM first
-RUN pip install --upgrade pip && \
-    pip install git+https://github.com/kpu/kenlm.git
+RUN pip install --upgrade pip
+RUN pip install git+https://github.com/kpu/kenlm.git
 
 # Install Python dependencies
 RUN pip install -r requirements.txt
