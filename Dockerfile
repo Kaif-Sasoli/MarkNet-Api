@@ -23,6 +23,8 @@ COPY requirements.txt /app/
 # Upgrade pip and install dependencies
 RUN pip install --upgrade pip
 
+RUN pip install gunicorn
+
 # Install KenLM first (needed for flashlight-text)
 RUN pip install git+https://github.com/kpu/kenlm.git
 
