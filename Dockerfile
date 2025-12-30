@@ -38,4 +38,4 @@ COPY . /app
 EXPOSE 10000
 
 # Use shell form CMD so Render can find gunicorn
-CMD gunicorn --bind 0.0.0.0:10000 app:app
+CMD gunicorn --bind 0.0.0.0:$PORT app:app
