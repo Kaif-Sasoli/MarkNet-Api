@@ -1,4 +1,3 @@
-# Web framework
 Flask
 
 # PyTorch stack
@@ -6,16 +5,17 @@ torch
 torchvision
 torchaudio
 
-# OCR / image handling
+# Image handling
 Pillow
-opencv-python
 numpy
+opencv-python-headless
 
-# YOLO from Ultralytics
+# YOLO
 ultralytics
 
+# OCR
 flashlight-text
-
-gunicorn
-## A change
 kenlm
+
+# Server
+gunicorn
