@@ -1,7 +1,7 @@
-# Use Python 3.10 (compatible with KenLM)
+# Python 3.10 is REQUIRED (KenLM compatible)
 FROM python:3.10-slim
 
-# Install system dependencies
+# Install ALL required system dependencies
 RUN apt-get update && apt-get install -y \
     build-essential \
     cmake \
@@ -12,30 +12,30 @@ RUN apt-get update && apt-get install -y \
     libbz2-dev \
     liblzma-dev \
     python3-dev \
+    libgl1 \
+    libglib2.0-0 \
     && rm -rf /var/lib/apt/lists/*
 
-# Set working directory
 WORKDIR /app
 
-# Copy requirements first (for caching)
-COPY requirements.txt /app/
+# Copy requirements first (Docker cache optimization)
+COPY requirements.txt .
 
-# Upgrade pip and install dependencies
 RUN pip install --upgrade pip
 
+# Install gunicorn explicitly
 RUN pip install gunicorn
 
-# Install KenLM first (needed for flashlight-text)
+# Install KenLM BEFORE flashlight-text
 RUN pip install git+https://github.com/kpu/kenlm.git
 
-# Install remaining Python dependencies
+# Install remaining Python deps (opencv, ultralytics, torch, etc.)
 RUN pip install -r requirements.txt
 
-# Copy the rest of the project files
-COPY . /app
+# Copy application code
+COPY . .
 
-# Expose port
+# Render provides $PORT automatically
 EXPOSE 10000
 
-# Use shell form CMD so Render can find gunicorn
 CMD gunicorn --bind 0.0.0.0:$PORT app:app
